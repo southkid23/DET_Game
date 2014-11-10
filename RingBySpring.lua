@@ -11,6 +11,8 @@ local scene = composer.newScene()
 local physics = require "physics"
 physics.start(); physics.pause()
 
+local score = 0 
+local tick = 400
 --------------------------------------------
 
 -- forward declarations and other locals
@@ -31,19 +33,62 @@ function scene:create( event )
 	background.anchorY = 0
 	background:setFillColor( .5 )
 	
-	-- make a crate (off-screen), position it, and rotate slightly
-	local crate = display.newImageRect( "crate.png", 90, 90 )
-	crate.x, crate.y = 160, -100
-	crate.rotation = 15
-	
-	-- add physics to the crate
-	physics.addBody( crate, { density=1.0, friction=0.3, bounce=0.3 } )
-	
 	-- create a grass object and add physics (with custom shape)
 	local grass = display.newImageRect( "grass.png", screenW, 82 )
 	grass.anchorX = 0
 	grass.anchorY = 1
 	grass.x, grass.y = 0, display.contentHeight
+
+	local rings = display.newImageRect("Rings.png", 30, 30)
+	rings.x, rings.y = 160, -100
+	rings.rotation = 20
+
+
+	physics.addBody( rings, { density=1.0, friction=0.3, bounce=0.3 } )
+
+
+	-- To make rings drop randomly around the top of the screen 
+local function loadRings()
+
+	local whereFrom = math.random(3)
+	ringsTable[numRings].myName="ring"
+	
+	if(whereFrom==1) then
+		rings.x = -50
+		rings.y = (math.random(display.contentHeight *.75))
+		transition.to(rings, {x= (display.contentWidth +100),
+		y=(math.random(display.contentHeight)), time =(math.random(5000, 10000))})
+	elseif(whereFrom==2) then
+		rings.x = (math.random(display.contentWidth))
+		rings.y = -30
+		transition.to(rings, {x= (math.random(display.contentWidth)),
+		y=(display.contentHeight+100), time =(math.random(5000, 10000))})
+	elseif(whereFrom==3) then
+		rings.x = display.contentWidth+50
+		rings.y = (math.random(display.contentHeight *.75))
+		transition.to(rings, {x= -100,
+		y=(math.random(display.contentHeight)), time =(math.random(5000, 10000))})
+	end	
+		
+end
+
+local function gameLoop()
+	loadRings()
+
+		if score > 2000 and tick >350 then
+			tick = 350
+		elseif score > 5000 and tick > 300 then
+			tick = 300
+		elseif score> 10000 and tick > 250 then
+			tick = 250
+		elseif score > 15000 and tick > 200 then
+			tick = 200
+		elseif score > 20000 and tick > 150 then 
+			tick = 150
+		elseif score > 25000 and tick > 100 then
+		 tick = 100
+	end
+end
 	
 	-- define a shape that's slightly shorter than image bounds (set draw mode to "hybrid" or "debug" to see)
 	local grassShape = { -halfW,-34, halfW,-34, halfW,34, -halfW,34 }
@@ -52,7 +97,7 @@ function scene:create( event )
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert( grass)
-	sceneGroup:insert( crate )
+	sceneGroup:insert( rings)
 end
 
 
@@ -107,6 +152,7 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+timer.performWithDelay(tick, gameLoop, 0)
 
 -----------------------------------------------------------------------------------------
 
