@@ -1,19 +1,25 @@
 -- Hide status bar
 display.setStatusBar(display.HiddenStatusBar)
 
+local score = 0
 
 -- include Corona's "physics" library
 local physics = require "physics"
 physics.start()
 physics.setScale(10)
 
-
-
 local background = display.newImage("clouds.jpg")
 background.x = 0
 background.y = 240
 
+local function newText()
+   textScore = display.newText("Score: "..score, 40, 10, nil, 12)
+   textScore:setTextColor(1,1,1)
+end          
 
+local function updateText()
+    textScore.text = "Score: "..score
+end
 
 local function drops()
 
@@ -33,6 +39,8 @@ end
 function onRingTouch(self, event)
 	if(event.phase == "began") then
 		timer.performWithDelay(1, function() self:removeSelf() end )
+		score = score + 1
+		updateText()
 	end
 	return true
 end
