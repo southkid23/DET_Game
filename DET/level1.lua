@@ -9,7 +9,8 @@ local scene = composer.newScene()
 
 -- include Corona's "physics" library
 local physics = require "physics"
-physics.start(); physics.pause()
+physics.start()
+physics.setScale(800)
 
 local score = 0 
 local tick = 400
@@ -39,19 +40,24 @@ function scene:create( event )
 	grass.anchorY = 1
 	grass.x, grass.y = 0, display.contentHeight
 
+end
+
+local function drops()
+
 	local rings = display.newImageRect("Rings.png", 30, 30)
 	rings.x, rings.y = 160, -100
 	rings.rotation = 20
 
+	rings.x = 1 + math.random( 450 ); rings.y = -20
 
 	physics.addBody( rings, { density=1.0, friction=0.3, bounce=0.3 } )
 
-
+end
 	-- To make rings drop randomly around the top of the screen 
 local function loadRings()
 
 	local whereFrom = math.random(3)
-	ringsTable[numRings].myName="ring"
+	rings[numRings].myName="ring"
 	
 	if(whereFrom==1) then
 		rings.x = -50
@@ -72,23 +78,6 @@ local function loadRings()
 		
 end
 
-local function gameLoop()
-	loadRings()
-
-		if score > 2000 and tick >350 then
-			tick = 350
-		elseif score > 5000 and tick > 300 then
-			tick = 300
-		elseif score> 10000 and tick > 250 then
-			tick = 250
-		elseif score > 15000 and tick > 200 then
-			tick = 200
-		elseif score > 20000 and tick > 150 then 
-			tick = 150
-		elseif score > 25000 and tick > 100 then
-		 tick = 100
-	end
-end
 	
 	-- define a shape that's slightly shorter than image bounds (set draw mode to "hybrid" or "debug" to see)
 	local grassShape = { -halfW,-34, halfW,-34, halfW,34, -halfW,34 }
@@ -97,7 +86,7 @@ end
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert( grass)
-	sceneGroup:insert( rings)
+	sceneGroup:insert( rings )
 end
 
 
@@ -152,7 +141,7 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
-timer.performWithDelay(tick, gameLoop, 0)
+timer.performWithDelay(.1, drops, 10000)
 
 -----------------------------------------------------------------------------------------
 
