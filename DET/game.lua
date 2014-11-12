@@ -1,7 +1,18 @@
--- Hide status bar
-display.setStatusBar(display.HiddenStatusBar)
 
-local score = 0
+local composer = require( "composer" )
+local scene = composer.newScene()
+
+
+function scene:create(event)
+	local score = 0
+
+	local background = display.newImage("clouds.jpg")
+	background.x = 0
+	background.y = 240
+	textScore = display.newText("Score: "..score, 40, 10, nil, 12)
+   	textScore:setTextColor(1,1,1)
+
+end
 
 -- include Corona's "physics" library
 local physics = require "physics"
@@ -21,9 +32,6 @@ local function updateText()
 end
 
 
-local background = display.newImage("clouds.jpg")
-background.x = 0
-background.y = 240
 
 local function newText()
    textScore = display.newText("Score: "..score, 40, 10, nil, 12)
@@ -59,5 +67,8 @@ function onRingTouch(self, event)
 end
 
 
+scene:addEventListener( "create", scene )
 newText()
 timer.performWithDelay(1000, drops, 10)
+
+return scene
