@@ -4,7 +4,10 @@ local scene = composer.newScene()
 
 local function rectCollision(self, event)
 		if event.phase == "began" then
-			
+			local loseText = display.newText("You LOSE!", 150, 200)	
+		end
+		if event.phase == "end" then
+
 		end
 	end
 
