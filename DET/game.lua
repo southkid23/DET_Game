@@ -2,6 +2,11 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 
+local function rectCollision(self, event)
+		if event.phase == "began" then
+			
+		end
+	end
 
 function scene:create(event)
 	local score = 0
@@ -9,12 +14,14 @@ function scene:create(event)
 	local background = display.newImage("clouds.jpg")
 	background.x = 0
 	background.y = 240
-	textScore = display.newText("Score: "..score, 25, -25, nil, 12)
+	textScore = display.newText("Score: "..score,50, 0, nil, 12)
    	textScore:setTextColor(1,1,1)
 
    	local rect = display.newRect(160, 530, display.contentWidth, 10)
    	physics.addBody(rect, "static", {})
-
+   	rect.type = "rect"
+	rect.collision = rectCollision
+	rect:addEventListener("collision", rect)
 end
 
 -- include Corona's "physics" library
