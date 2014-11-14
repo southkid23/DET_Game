@@ -9,8 +9,11 @@ function scene:create(event)
 	local background = display.newImage("clouds.jpg")
 	background.x = 0
 	background.y = 240
-	textScore = display.newText("Score: "..score, 40, 10, nil, 12)
+	textScore = display.newText("Score: "..score, 25, -25, nil, 12)
    	textScore:setTextColor(1,1,1)
+
+   	local rect = display.newRect(160, 530, display.contentWidth, 10)
+   	physics.addBody(rect, "static", {})
 
 end
 
@@ -23,7 +26,7 @@ physics.setScale(10)
 local score = 0
 
 local function newText()
-   textScore = display.newText("Score: "..score, 40, 10, nil, 12)
+   textScore = display.newText("Score: "..score, 100, 200, nil, 12)
    textScore:setTextColor(1,1,1)
 end          
 
@@ -31,16 +34,6 @@ local function updateText()
     textScore.text = "Score: "..score
 end
 
-
-
-local function newText()
-   textScore = display.newText("Score: "..score, 40, 10, nil, 12)
-   textScore:setTextColor(1,1,1)
-end          
-
-local function updateText()
-    textScore.text = "Score: "..score
-end
 
 local function drops()
 
