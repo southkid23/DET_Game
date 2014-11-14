@@ -1,13 +1,21 @@
-
 local composer = require( "composer" )
 local scene = composer.newScene()
+local widget = require "widget"
+local playBtn
+
+local function onPlayBtnRelease()
+	
+	-- go to level1.lua scene
+	composer.gotoScene( "menu", "fade", 500 )
+	
+	return true	-- indicates successful touch
+end
 
 local function rectCollision(self, event)
 		if event.phase == "began" then
-			local loseText = display.newText("You LOSE!", 150, 200)	
+			local loseText = display.newText("You lose, restart to try again!", 150, 200)
 		end
 		if event.phase == "end" then
-
 		end
 	end
 
@@ -25,6 +33,17 @@ function scene:create(event)
    	rect.type = "rect"
 	rect.collision = rectCollision
 	rect:addEventListener("collision", rect)
+
+	playBtn = widget.newButton{
+		label="Restart",
+		labelColor = { default={255}, over={128} },
+		default="button.png",
+		over="button-over.png",
+		width=20, height=200,
+		onRelease = onPlayBtnRelease	-- event listener function
+	}
+	playBtn.x = display.contentWidth * 0.8
+	playBtn.y = display.contentHeight - 480
 end
 
 -- include Corona's "physics" library
