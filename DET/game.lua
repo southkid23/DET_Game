@@ -1,6 +1,8 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
+local speed = 1000
+local count = 10
 
 
 function scene:create(event)
@@ -50,6 +52,14 @@ local function drops()
 
 end
 
+-- Sleeps for x milliseconds
+function delayRings()
+
+	count=count*1.4
+	speed=speed/1.4
+	timer.performWithDelay(speed, drops, count)
+end
+
 function onRingTouch(self, event)
 	if(event.phase == "began") then
 		timer.performWithDelay(1, function() self:removeSelf() end )
@@ -63,5 +73,6 @@ end
 scene:addEventListener( "create", scene )
 newText()
 timer.performWithDelay(1000, drops, 10)
+timer.performWithDelay(12000, delayRings, 2)
 
 return scene
