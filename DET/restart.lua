@@ -5,17 +5,16 @@ local widget = require "widget"
 local function onPlayBtnRelease()
 	
 	-- go to level1.lua scene
-	composer.gotoScene( "restart", {time=250, effect=crossFade})
-	
+	composer.gotoScene( "game", {time=250, effect=crossFade})
 	
 	return true	-- indicates successful touch
 end
 
 local function rectCollision(self, event)
-		if event.phase == "began" then
-			local loseText = display.newText("You lose, restart to try again!", 150, 200)
-		end
+	if event.phase == "began" then
+		local loseText = display.newText("You lose, restart to try again!", 150, 200)
 	end
+end
 
 
 
