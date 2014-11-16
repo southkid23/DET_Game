@@ -71,8 +71,19 @@ function onRingTouch(self, event)
 	return true
 end
 
+function onCollision(event)
+	if((event.object1.myName=="ring" and event.object2.myName=="obj") or
+	(event.object1.myName=="obj" and event.object2.myName=="ring")) then
+		timer.performWithDelay( 100, function() physics.stop() end, 1 )
+		local single = display.newImage("forever-alone.jpg")
+		single:scale(.5, .5)
+		single.x = 160
+		single.y = 260
+	end
+end
 
 scene:addEventListener( "create", scene )
+Runtime:addEventListener("collision", onCollision)
 newText()
 timer.performWithDelay(1000, drops, 10)
 timer.performWithDelay(10000, delayRings, 2)
