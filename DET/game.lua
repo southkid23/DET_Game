@@ -43,7 +43,7 @@ local function drops()
 	rings.x, rings.y = 160, -120
 	rings.rotation = 20
 
-	rings.x = 1 + math.random( 300 ); rings.y = -20
+	rings.x = math.random(15, 300); rings.y = -70
 
 	physics.addBody( rings, { density=1.0, friction=0.3, bounce=0.3 } )
 
@@ -73,6 +73,6 @@ end
 scene:addEventListener( "create", scene )
 newText()
 timer.performWithDelay(1000, drops, 10)
-timer.performWithDelay(12000, delayRings, 2)
+timer.performWithDelay(10000, delayRings, 2)
 
 return scene
