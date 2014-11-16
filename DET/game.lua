@@ -15,6 +15,7 @@ function scene:create(event)
    	textScore:setTextColor(1,1,1)
 
    	local rect = display.newRect(160, 530, display.contentWidth, 10)
+   	rect.myName = "obj"
    	physics.addBody(rect, "static", {})
 
 end
@@ -40,6 +41,7 @@ end
 local function drops()
 
 	local rings = display.newImageRect("Rings.png", 30, 30)
+	rings.myName = "ring"
 	rings.x, rings.y = 160, -120
 	rings.rotation = 20
 
