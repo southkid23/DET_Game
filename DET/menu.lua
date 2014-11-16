@@ -53,7 +53,7 @@ function scene:create( event )
 		onRelease = onPlayBtnRelease	-- event listener function
 	}
 	playBtn.x = display.contentWidth * 0.5
-	playBtn.y = display.contentHeight - 125
+	playBtn.y = display.contentHeight - 70
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
