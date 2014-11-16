@@ -48,7 +48,7 @@ function scene:create( event )
 		
 		defaultFile="playButton.png",
 		
-		width=154, height=100,
+		width=154/2, height=100/2,
 		onRelease = onPlayBtnRelease	-- event listener function
 	}
 	playBtn.x = display.contentWidth * 0.5
