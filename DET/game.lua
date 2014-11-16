@@ -77,6 +77,7 @@ function onCollision(event)
 	if((event.object1.myName=="ring" and event.object2.myName=="obj") or
 	(event.object1.myName=="obj" and event.object2.myName=="ring")) then
 		timer.performWithDelay( 100, function() physics.stop() end, 1 )
+		audio.pause( gameMusic )
 		local LoseFx = audio.loadSound("WWWamp.mp3")
 		audio.play(LoseFx)
 		local single = display.newImage("forever-alone.jpg")

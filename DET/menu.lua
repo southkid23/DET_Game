@@ -74,6 +74,9 @@ function scene:show( event )
 	end	
 end
 
+local gameMusic = audio.loadStream ("Ring_Dinge_Ring.mp3")
+audio.play(gameMusic, {loops = -1})
+
 function scene:hide( event )
 	local sceneGroup = self.view
 	local phase = event.phase
