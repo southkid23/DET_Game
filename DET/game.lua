@@ -1,6 +1,8 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
+local speed = 1000
+local count = 10
 
 
 function scene:create(event)
@@ -13,6 +15,7 @@ function scene:create(event)
    	textScore:setTextColor(1,1,1)
 
    	local rect = display.newRect(160, 530, display.contentWidth, 10)
+   	rect.myName = "obj"
    	physics.addBody(rect, "static", {})
 
 end
@@ -38,16 +41,25 @@ end
 local function drops()
 
 	local rings = display.newImageRect("Rings.png", 30, 30)
+	rings.myName = "ring"
 	rings.x, rings.y = 160, -120
 	rings.rotation = 20
 
-	rings.x = 1 + math.random( 300 ); rings.y = -20
+	rings.x = math.random(15, 300); rings.y = -70
 
 	physics.addBody( rings, { density=1.0, friction=0.3, bounce=0.3 } )
 
 	rings.touch = onRingTouch
 	rings:addEventListener("touch", rings)
 
+end
+
+-- Sleeps for x milliseconds
+function delayRings()
+
+	count=count*1.4
+	speed=speed/1.4
+	timer.performWithDelay(speed, drops, count)
 end
 
 function onRingTouch(self, event)
@@ -59,9 +71,21 @@ function onRingTouch(self, event)
 	return true
 end
 
+function onCollision(event)
+	if((event.object1.myName=="ring" and event.object2.myName=="obj") or
+	(event.object1.myName=="obj" and event.object2.myName=="ring")) then
+		timer.performWithDelay( 100, function() physics.stop() end, 1 )
+		local single = display.newImage("forever-alone.jpg")
+		single:scale(.5, .5)
+		single.x = 160
+		single.y = 260
+	end
+end
 
 scene:addEventListener( "create", scene )
+Runtime:addEventListener("collision", onCollision)
 newText()
 timer.performWithDelay(1000, drops, 10)
+timer.performWithDelay(10000, delayRings, 2)
 
 return scene
