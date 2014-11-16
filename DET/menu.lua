@@ -33,13 +33,13 @@ function scene:create( event )
 	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
 	-- display a background image
-	local background = display.newImageRect( "background.jpg", display.contentWidth, display.contentHeight )
+	local background = display.newImageRect( "Ring_back.jpg", display.contentWidth, display.contentHeight * 1.2 )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x, background.y = 0, 0
 	
 	local title = display.newText( "Ring by Spring", 0, 0, native.systemFontBold, 32 )
-	title:setFillColor( 0 )	-- black
+	title:setFillColor( 1 )	-- black
 	title.x = display.contentWidth * 0.5
 	title.y = 100
 
