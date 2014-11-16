@@ -53,6 +53,8 @@ end
 function onRingTouch(self, event)
 	if(event.phase == "began") then
 		timer.performWithDelay(1, function() self:removeSelf() end )
+		local SoundFx = audio.loadSound("Ring_Sound.mp3")
+		audio.play( SoundFx )
 		score = score + 1
 		updateText()
 	end
