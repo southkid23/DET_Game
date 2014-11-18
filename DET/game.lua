@@ -11,10 +11,14 @@ function scene:create(event)
 	local background = display.newImage("clouds.jpg")
 	background.x = 0
 	background.y = 240
-	textScore = display.newText("Score: "..score, 25, -25, nil, 12)
+	textScore = display.newText("Score: "..score, 50, -0, nil, 12)
    	textScore:setTextColor(1,1,1)
 
+<<<<<<< HEAD
    	local rect = display.newRect(160, 530, display.contentWidth, 10)
+=======
+   	local rect = display.newRect(160, 580, display.contentWidth, 10)
+>>>>>>> soundtest
    	rect.myName = "obj"
    	physics.addBody(rect, "static", {})
 
@@ -65,6 +69,8 @@ end
 function onRingTouch(self, event)
 	if(event.phase == "began") then
 		timer.performWithDelay(1, function() self:removeSelf() end )
+		local SoundFx = audio.loadSound("Ring_Sound.mp3")
+		audio.play( SoundFx )
 		score = score + 1
 		updateText()
 	end
@@ -75,6 +81,12 @@ function onCollision(event)
 	if((event.object1.myName=="ring" and event.object2.myName=="obj") or
 	(event.object1.myName=="obj" and event.object2.myName=="ring")) then
 		timer.performWithDelay( 100, function() physics.stop() end, 1 )
+<<<<<<< HEAD
+=======
+		audio.pause( gameMusic )
+		local LoseFx = audio.loadSound("WWWamp.mp3")
+		audio.play(LoseFx)
+>>>>>>> soundtest
 		local single = display.newImage("forever-alone.jpg")
 		single:scale(.5, .5)
 		single.x = 160

@@ -33,27 +33,26 @@ function scene:create( event )
 	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
 	-- display a background image
-	local background = display.newImageRect( "background.jpg", display.contentWidth, display.contentHeight )
+	local background = display.newImageRect( "Ring_back.jpg", display.contentWidth, display.contentHeight * 1.2 )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x, background.y = 0, 0
 	
 	local title = display.newText( "Ring by Spring", 0, 0, native.systemFontBold, 32 )
-	title:setFillColor( 0 )	-- black
+	title:setFillColor( 1 )	-- black
 	title.x = display.contentWidth * 0.5
 	title.y = 100
 
 	-- create a widget button (which will loads level1.lua on release)
 	playBtn = widget.newButton{
-		label="Start",
-		labelColor = { default={255}, over={128} },
-		default="button.png",
-		over="button-over.png",
-		width=154, height=40,
+		
+		defaultFile="playButton.png",
+		
+		width=60, height=60,
 		onRelease = onPlayBtnRelease	-- event listener function
 	}
 	playBtn.x = display.contentWidth * 0.5
-	playBtn.y = display.contentHeight - 125
+	playBtn.y = display.contentHeight - 100
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
@@ -74,6 +73,9 @@ function scene:show( event )
 		-- e.g. start timers, begin animation, play audio, etc.
 	end	
 end
+
+local gameMusic = audio.loadStream ("Ring_Dinge_Ring.mp3")
+audio.play(gameMusic, {loops = -1})
 
 function scene:hide( event )
 	local sceneGroup = self.view
