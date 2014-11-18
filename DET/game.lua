@@ -14,11 +14,8 @@ function scene:create(event)
 	textScore = display.newText("Score: "..score, 50, -0, nil, 12)
    	textScore:setTextColor(1,1,1)
 
-<<<<<<< HEAD
-   	local rect = display.newRect(160, 530, display.contentWidth, 10)
-=======
+
    	local rect = display.newRect(160, 580, display.contentWidth, 10)
->>>>>>> soundtest
    	rect.myName = "obj"
    	physics.addBody(rect, "static", {})
 
